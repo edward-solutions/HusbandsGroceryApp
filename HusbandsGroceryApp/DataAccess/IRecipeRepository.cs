@@ -6,8 +6,9 @@ namespace HusbandsGroceryApp.DataAccess
     {
         Recipe GetDishByName(string name);
         List<Recipe> GetAllDishes();
-        void AddDish(Recipe dish);
+        void AddDish(Recipe recipe);
         void UpdateDish(Recipe dish);
         void DeleteDish(string name);
+        void AddtoUlam(Recipe recipe);
     }
 }
