@@ -5,5 +5,7 @@ namespace HusbandsGroceryApp.DataAccess
     public interface ICheckoutRepository
     {
         RecipeCollection GetRecipeCollection();
+        void UpdateCheckoutList(RecipeCollection updatedCollection);
+
     }
 }

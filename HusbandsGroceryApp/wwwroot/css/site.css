@@ -20,3 +20,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.ingredient-cell {
+    background-color: inherit;
+    transition: background-color 0.3s ease;
+}
+
+    .ingredient-cell[contenteditable="true"] {
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
