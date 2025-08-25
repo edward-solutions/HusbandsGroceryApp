@@ -15,26 +15,26 @@ namespace HusbandsGroceryApp.DataAccess
 
         public void AddtoUlam(Recipe recipe)
         {
-            List<Recipe> ulams;
+            List<Recipe> ulams = new List<Recipe>();
 
             if (File.Exists(UlamsFilePath))
             {
                 string existingJson = File.ReadAllText(UlamsFilePath);
 
-                ulams = !string.IsNullOrWhiteSpace(existingJson)
-                    ? JsonSerializer.Deserialize<List<Recipe>>(existingJson) ?? new List<Recipe>()
-                    : new List<Recipe>();
-            }
-            else
-            {
-                ulams = new List<Recipe>();
+                if (!string.IsNullOrWhiteSpace(existingJson))
+                {
+                    ulams = JsonSerializer.Deserialize<List<Recipe>>(existingJson) ?? new List<Recipe>();
+                }
             }
 
             ulams.Add(recipe);
 
-            string updatedJson = JsonSerializer.Serialize(ulams, new JsonSerializerOptions { WriteIndented = true });
+            RecipeCollection collection = new RecipeCollection() { Recipes = ulams };
+
+            string updatedJson = JsonSerializer.Serialize(collection, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(UlamsFilePath, updatedJson);
         }
+
 
 
         public void DeleteDish(string name)
