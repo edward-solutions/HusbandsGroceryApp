@@ -8,6 +8,6 @@
 
     public class RecipeCollection
     {
-        public List<Recipe>? Recipes { get; set; }
+        public List<Recipe>? Recipes { get; set; } = new List<Recipe>();
     }
 }

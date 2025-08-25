@@ -1,0 +1,33 @@
+﻿@model RecipeCollection
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Recipe Name</th>
+            <th>Ingredients</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model.Recipes ?? new List<Recipe>())
+        {
+            <tr>
+                <td>@recipe.Name</td>
+                <td>
+                    @if (recipe.Ingredients != null && recipe.Ingredients.Any())
+                    {
+                        <ul class="mb-0">
+                            @foreach (var ingredient in recipe.Ingredients)
+                            {
+                                <li>@ingredient</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <em>No ingredients listed</em>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

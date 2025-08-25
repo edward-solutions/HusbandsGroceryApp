@@ -15,25 +15,34 @@ namespace HusbandsGroceryApp.DataAccess
 
         public void AddtoUlam(Recipe recipe)
         {
-            List<Recipe> ulams = new List<Recipe>();
-
-            if (File.Exists(UlamsFilePath))
+            try
             {
-                string existingJson = File.ReadAllText(UlamsFilePath);
+                RecipeCollection ulams = new RecipeCollection();
 
-                if (!string.IsNullOrWhiteSpace(existingJson))
+                if (File.Exists(UlamsFilePath))
                 {
-                    ulams = JsonSerializer.Deserialize<List<Recipe>>(existingJson) ?? new List<Recipe>();
+                    string existingJson = File.ReadAllText(UlamsFilePath);
+
+                    if (!string.IsNullOrWhiteSpace(existingJson))
+                    {
+                        ulams = JsonSerializer.Deserialize<RecipeCollection>(existingJson) ?? new RecipeCollection();
+                    }
                 }
+
+                // Ensure Recipes is always initialized
+                ulams.Recipes ??= new List<Recipe>();
+                ulams.Recipes.Add(recipe);
+
+                string updatedJson = JsonSerializer.Serialize(ulams, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(UlamsFilePath, updatedJson);
             }
-
-            ulams.Add(recipe);
-
-            RecipeCollection collection = new RecipeCollection() { Recipes = ulams };
-
-            string updatedJson = JsonSerializer.Serialize(collection, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(UlamsFilePath, updatedJson);
+            catch (Exception ex)
+            {
+                // Handle JSON errors, file lock issues, etc.
+                Console.WriteLine($"Error updating ulams file: {ex.Message}");
+            }
         }
+
 
 
 
