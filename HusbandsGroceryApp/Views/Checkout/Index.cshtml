@@ -12,7 +12,7 @@
         {
             <tr>
                 <td>@recipe.Name</td>
-                <td>
+                <td contenteditable="true">
                     @if (recipe.Ingredients != null && recipe.Ingredients.Any())
                     {
                         <ul class="mb-0">
@@ -22,12 +22,15 @@
                             }
                         </ul>
                     }
-                    else
-                    {
-                        <em>No ingredients listed</em>
-                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@if (!Model.Recipes.Any())
+{
+    <h1>No ingredients listed!</h1>
+
+}
+

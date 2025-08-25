@@ -8,8 +8,15 @@ namespace HusbandsGroceryApp.DataAccess
     {
         public RecipeCollection GetRecipeCollection()
         {
+            if (!File.Exists(ProgramConstants.UlamsFilePath))
+            {
+                // If file does not exist, return a new empty collection
+                return new RecipeCollection();
+            }
+
             string json = File.ReadAllText(ProgramConstants.UlamsFilePath);
-            return JsonSerializer.Deserialize<RecipeCollection>(json);
+
+            return new RecipeCollection();
         }
     }
 }
