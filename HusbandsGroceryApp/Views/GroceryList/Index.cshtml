@@ -1,0 +1,27 @@
+﻿@model RecipeCollection
+
+<h2>Grocery List</h2>
+
+<textarea class="form-control" rows="20" wrap="soft">
+@{ 
+    int counter = 1;
+    
+    // First, list all recipe names
+    foreach (var recipe in Model.Recipes)
+    {
+        @($"{counter}. {recipe.Name}\r\n")
+        counter++;
+    }
+
+    @("\r\n")  @* Empty line between names and ingredients *@
+
+    // Then, list all ingredients
+    foreach (var recipe in Model.Recipes)
+    {
+        foreach (var ingredient in recipe.Ingredients)
+        {
+            @($"{ingredient}\r\n")
+        }
+    }
+}
+</textarea>

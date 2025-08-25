@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 builder.Services.AddTransient<ICheckoutRepository, CheckoutRepository>();
+builder.Services.AddTransient<IGroceryListRepository, GroceryListRepository>();
 
 var app = builder.Build();
 
