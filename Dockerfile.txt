@@ -1,17 +1,27 @@
+# Base runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 5000
 
+# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["MyApp.csproj", "./"]
+
+# Copy the .csproj file(s) and restore dependencies
+COPY ["HusbandsGroceryApp/HusbandsGroceryApp.csproj", "./"]
 RUN dotnet restore "HusbandsGroceryApp.csproj"
-COPY . .
+
+# Copy all source files
+COPY HusbandsGroceryApp/. ./
+
+# Build the project
 RUN dotnet build "HusbandsGroceryApp.csproj" -c Release -o /app/build
 
+# Publish stage
 FROM build AS publish
-RUN dotnet publish "MyAppHusbandsGroceryAppcsproj" -c Release -o /app/publish
+RUN dotnet publish "HusbandsGroceryApp.csproj" -c Release -o /app/publish
 
+# Final stage
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
