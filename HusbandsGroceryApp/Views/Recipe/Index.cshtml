@@ -39,7 +39,7 @@
                         <!-- Edit -->
                         <form asp-controller="Recipe" asp-action="Edit" method="get" class="d-inline">
                             <input type="hidden" name="Name" value="@recipe.Name" />
-                            <button type="submit" class="btn btn-warning btn-sm me-1 mb-1">
+                            <button disabled type="submit" class="btn btn-warning btn-sm me-1 mb-1">
                                 <i class="bi bi-pencil"></i> Edit
                             </button>
                         </form>
@@ -47,7 +47,7 @@
                         <!-- Delete -->
                         <form asp-controller="Recipe" asp-action="Delete" method="post" class="d-inline">
                             <input type="hidden" name="Name" value="@recipe.Name" />
-                            <button type="submit" class="btn btn-danger btn-sm mb-1">
+                            <button disabled type="submit" class="btn btn-danger btn-sm mb-1">
                                 <i class="bi bi-trash"></i> Delete
                             </button>
                         </form>
